@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Road Accident Insights</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./css/styles.css" />
+</head>
+<body>
+  <div id="errorBanner" class="error-banner fixed top-14 left-0 right-0 z-40 items-center justify-center bg-red-100 border-y border-red-300 text-red-800 text-sm py-2">
+    CSV load failed. Showing sample data.
+  </div>
+
+  <nav class="fixed top-0 left-0 right-0 z-50 h-14 bg-[#F7F5F0]/95 backdrop-blur-sm border-b border-stone-200">
+    <div class="max-w-[1500px] mx-auto h-full px-4 flex items-center justify-between">
+      <div class="font-serif-display text-lg text-stone-800">Data Viz Class</div>
+      <div class="flex items-center gap-2">
+        <label for="storiesNav" class="sr-only">Stories</label>
+        <select id="storiesNav" class="h-9 px-3 rounded-lg border border-stone-300 bg-white text-sm text-stone-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-stone-500" aria-label="Stories navigation">
+          <option value="">Stories</option>
+          <option value="./story-1/">Time of Day Risk</option>
+          <option value="./story-2/">Curves by Road Type</option>
+          <option value="./story-3/">Dim Is Not One Thing</option>
+        </select>
+        <a href="./data/road_accidents.csv" download class="h-9 px-3 rounded-lg border border-stone-300 bg-white text-sm text-stone-800 inline-flex items-center hover:bg-stone-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-stone-500">
+          Download Dataset
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="pt-16 px-4 pb-4 h-[calc(100vh-0rem)]">
+    <section class="max-w-[1500px] h-full mx-auto grid grid-cols-4 grid-rows-2 gap-4">
+      <article class="bento-card p-5 col-span-1 row-span-1 flex flex-col justify-between">
+        <header>
+          <h1 class="font-serif-display text-4xl leading-tight text-stone-900">Road Accident Insights</h1>
+          <p class="mt-3 text-sm text-stone-500">
+            Exploring how time, road type, and visibility conditions shape accident patterns.
+          </p>
+        </header>
+      </article>
+
+      <a id="story1Card" href="./story-1/" class="story-card bento-card p-4 col-span-3 row-span-1 flex flex-col" aria-label="Open story: Time of Day Risk">
+        <header>
+          <h2 class="font-serif-display text-2xl text-stone-900">Time of Day Risk</h2>
+          <p class="text-xs text-stone-500">Accident levels shift across morning, afternoon, and evening by road type.</p>
+        </header>
+        <div class="flex-1 mt-2 min-h-0">
+          <div id="story1Chart" class="w-full h-full"></div>
+        </div>
+        <div class="explore-label text-xs text-stone-500">Explore →</div>
+      </a>
+
+      <a id="story2Card" href="./story-2/" class="story-card bento-card p-4 col-span-1 row-span-1 flex flex-col" aria-label="Open story: Curves by Road Type">
+        <header>
+          <h2 class="font-serif-display text-xl text-stone-900">Curves by Road Type</h2>
+          <p class="text-xs text-stone-500">Curvature bands reveal different risk profiles by road class.</p>
+        </header>
+        <div class="flex-1 mt-2 min-h-0">
+          <div id="story2Chart" class="w-full h-full"></div>
+        </div>
+        <div class="explore-label text-xs text-stone-500">Explore →</div>
+      </a>
+
+      <a id="story3Card" href="./story-3/" class="story-card bento-card p-4 col-span-1 row-span-1 flex flex-col" aria-label="Open story: Dim Is Not One Thing">
+        <header>
+          <h2 class="font-serif-display text-xl text-stone-900">Dim Is Not One Thing</h2>
+          <p class="text-xs text-stone-500">Lighting quality changes risk differently across times of day.</p>
+        </header>
+        <div class="flex-1 mt-2 min-h-0">
+          <div id="story3Chart" class="w-full h-full"></div>
+        </div>
+        <div class="explore-label text-xs text-stone-500">Explore →</div>
+      </a>
+
+      <article class="bento-card p-4 col-span-1 row-span-1 flex flex-col">
+        <header>
+          <h3 class="font-serif-display text-xl text-stone-900">Peak Risk</h3>
+        </header>
+        <div class="mt-1 flex-1 min-h-0">
+          <div id="indicatorAChart" class="w-full h-[70%]"></div>
+          <div id="indicatorALegend" class="h-[30%] pt-1"></div>
+        </div>
+      </article>
+
+      <article class="bento-card p-4 col-span-1 row-span-1 flex flex-col">
+        <header>
+          <h3 class="font-serif-display text-xl text-stone-900">Risk Delta</h3>
+        </header>
+        <div id="indicatorBChart" class="mt-2 flex-1 min-h-0"></div>
+      </article>
+    </section>
+  </main>
+
+  <script type="module" src="./js/main.js"></script>
+</body>
+</html>
